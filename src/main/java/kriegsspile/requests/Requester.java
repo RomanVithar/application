@@ -52,7 +52,7 @@ public class Requester {
         params.add(new BasicNameValuePair("y1", ""+y1));
         params.add(new BasicNameValuePair("x2", ""+x2));
         params.add(new BasicNameValuePair("y2", ""+y2));
-        Content getResultForm = Request.Get("http://localhost:8081/move")
+        Content getResultForm = Request.Post("http://localhost:8081/move")
                 .bodyForm(params, Charset.defaultCharset())
                 .execute().returnContent();
         GsonBuilder builder = new GsonBuilder();

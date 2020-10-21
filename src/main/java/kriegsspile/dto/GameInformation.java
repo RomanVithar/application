@@ -10,10 +10,6 @@ public class GameInformation {
     public List<Units> enemyUnits;
     public String messageResponse;
 
-    public GameInformation() {
-        enemyUnits = new ArrayList<Units>();
-        myUnits = new ArrayList<Units>();
-    }
 
     public void setMessageResponse(String messageResponse) {
         this.messageResponse = messageResponse;

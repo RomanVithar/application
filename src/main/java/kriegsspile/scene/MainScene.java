@@ -1,5 +1,6 @@
 package kriegsspile.scene;
 
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
@@ -22,6 +23,8 @@ import java.util.Set;
 public class MainScene {
     private Scene mainScene;
     private FlowPane pane;
+
+    Label lblStartString;
     TextField tfStart;
     Button btnSend;
     Label state;
@@ -39,18 +42,18 @@ public class MainScene {
                     return;
                 }
                 GameInformation gInfo = new GameInformation();
-                do {
-                    try {
-                        gInfo = Requester.addPlayer(tfStart.getText());
-                    } catch (IOException e) {
-                        state.setText("Нет подключения к серверу");
-                        e.printStackTrace();
-                        return;
-                    }
+                try {
+                    gInfo = Requester.addPlayer(tfStart.getText());
+                } catch (IOException e) {
+                    state.setText("Нет подключения к серверу");
+                    e.printStackTrace();
+                    return;
+                }
+                if (gInfo.messageResponse != null) {
                     state.setText(gInfo.messageResponse);
-                } while (gInfo.messageResponse != null);
+                    return;
+                }
                 state.setText("Ваше имя успешно отправлено");
-
                 pane.getChildren().removeAll(tfStart, btnSend);
                 pane.getChildren().add(btnStart);
             }
@@ -61,6 +64,9 @@ public class MainScene {
             public void handle(ActionEvent event) {
                 try {
                     Requester.startGame();
+                    pane.getChildren().removeAll(btnStart, state, lblStartString);
+
+                    pane.getChildren().addAll();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -69,7 +75,7 @@ public class MainScene {
     }
 
     private void initPane() {
-        Label lblStartString = new Label(GlobalConstants.GAME_NAME);
+        lblStartString = new Label(GlobalConstants.GAME_NAME);
         lblStartString.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
         state = new Label("");
         btnSend = new Button("Ввести имя");

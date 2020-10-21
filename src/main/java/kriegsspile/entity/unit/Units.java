@@ -2,7 +2,7 @@ package kriegsspile.entity.unit;
 
 import java.awt.*;
 
-public abstract class Units {
+public class Units {
     protected String playerName;
     protected UnitType unitType;
     protected Point position;
@@ -10,6 +10,7 @@ public abstract class Units {
     protected double strong;
     protected double armor;
     protected double lengthMove;
+
 
     public double getLengthMove() {
         return lengthMove;
