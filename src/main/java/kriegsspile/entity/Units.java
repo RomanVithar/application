@@ -1,4 +1,4 @@
-package kriegsspile.entity.unit;
+package kriegsspile.entity;
 
 import java.awt.*;
 

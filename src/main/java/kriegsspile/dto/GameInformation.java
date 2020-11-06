@@ -1,8 +1,8 @@
 package kriegsspile.dto;
 
-import kriegsspile.entity.unit.Units;
 
-import java.util.ArrayList;
+import sun.management.counter.Units;
+
 import java.util.List;
 
 public class GameInformation {
