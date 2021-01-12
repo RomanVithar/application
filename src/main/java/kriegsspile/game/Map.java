@@ -1,11 +1,10 @@
 package kriegsspile.game;
 
+import javafx.scene.paint.Color;
 import kriegsspile.constants.CellState;
 import kriegsspile.constants.GlobalConstants;
 import kriegsspile.dto.GameInformation;
-import sun.management.counter.Units;
-
-import java.util.List;
+import kriegsspile.entity.Units;
 
 public class Map {
     private CellState[][] map = new CellState[GlobalConstants.MAP_H][GlobalConstants.MAP_W];
@@ -24,8 +23,28 @@ public class Map {
     }
 
     public void setAsGameInfo(GameInformation gameInfo) {
+        for (Units units : gameInfo.myUnits) {
+            switch (units.getUnitType()) {
+                case TANK:
+                    map[units.getPosition().y][units.getPosition().x] = CellState.U_TANK;
+                    break;
+                case INFANTRY:
+                    map[units.getPosition().y][units.getPosition().x] = CellState.U_INFANTRY;
+                    break;
+            }
+        }
+        for (Units units : gameInfo.myUnits) {
+            switch (units.getUnitType()) {
+                case TANK:
+                    map[units.getPosition().y][units.getPosition().x] = CellState.E_TANK;
+                    break;
+                case INFANTRY:
+                    map[units.getPosition().y][units.getPosition().x] = CellState.E_INFANTRY;
+                    break;
+            }
+        }
         /*
-        todo заполнить из gameInfo
+        todo скорее всего надо будет дописать
          */
     }
 

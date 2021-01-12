@@ -1,5 +1,5 @@
 package kriegsspile.constants;
 
 public enum CellState {
-    NONE, UNIT, ENEMY
+    NONE, U_TANK, E_TANK, U_INFANTRY, E_INFANTRY
 }

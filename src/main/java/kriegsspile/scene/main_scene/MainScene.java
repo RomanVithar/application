@@ -35,71 +35,71 @@ public class MainScene {
     private FlowPane gamePane;
     private String playerName;
 
-    public MainScene() {
+    public MainScene() throws IOException {
         root = new Group();
         mainScene = new Scene(root, GlobalConstants.SCENE_WIDTH, GlobalConstants.SCENE_HEIGHT, Color.LIGHTGRAY);
-        authGroupInit();
+        gamePaneInit();
     }
 
-    private void authGroupInit() {
-        Label lblStartString = new Label(GlobalConstants.GAME_NAME);
-        lblStartString.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        TextField tfStart = new TextField();
-        Button btnSend = new Button("Ввести имя");
-        tfStart.setPromptText("Введите имя в игре");
-        Label state = new Label("");
-        authPane = new FlowPane(Orientation.VERTICAL, 70, 70, lblStartString, tfStart, state, btnSend);
-        authPane.setAlignment(Pos.CENTER);
-        root.getChildren().addAll(authPane);
+//    private void authGroupInit() {
+//        Label lblStartString = new Label(GlobalConstants.GAME_NAME);
+//        lblStartString.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+//        TextField tfStart = new TextField();
+//        Button btnSend = new Button("Ввести имя");
+//        tfStart.setPromptText("Введите имя в игре");
+//        Label state = new Label("");
+//        authPane = new FlowPane(Orientation.VERTICAL, 70, 70, lblStartString, tfStart, state, btnSend);
+//        authPane.setAlignment(Pos.CENTER);
+//        root.getChildren().addAll(authPane);
+//
+//        btnSend.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//                if (tfStart.getText().equals("")) {
+//                    state.setText("Это поле не может быть пустым");
+//                    return;
+//                }
+//                GameInformation gInfo;
+//                try {
+//                    gInfo = Requester.addPlayer(tfStart.getText());
+//                } catch (IOException e) {
+//                    state.setText("Нет подключения к серверу");
+//                    e.printStackTrace();
+//                    return;
+//                }
+//                if (gInfo.messageResponse != null) {
+//                    state.setText(gInfo.messageResponse);
+//                    return;
+//                }
+//                playerName = tfStart.getText();
+//                state.setText("Ваше имя успешно отправлено");
+//                root.getChildren().removeAll(authPane);
+//                waitingRoomGroupInit();
+//            }
+//        });
+//
+//    }
 
-        btnSend.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (tfStart.getText().equals("")) {
-                    state.setText("Это поле не может быть пустым");
-                    return;
-                }
-                GameInformation gInfo;
-                try {
-                    gInfo = Requester.addPlayer(tfStart.getText());
-                } catch (IOException e) {
-                    state.setText("Нет подключения к серверу");
-                    e.printStackTrace();
-                    return;
-                }
-                if (gInfo.messageResponse != null) {
-                    state.setText(gInfo.messageResponse);
-                    return;
-                }
-                playerName = tfStart.getText();
-                state.setText("Ваше имя успешно отправлено");
-                root.getChildren().removeAll(authPane);
-                waitingRoomGroupInit();
-            }
-        });
-
-    }
-
-    private void waitingRoomGroupInit() {
-        Button btnStart = new Button("Начать игру");
-        btnStart.requestFocus();
-        waitingRoomPane = new FlowPane(Orientation.VERTICAL, 70, 70, btnStart);
-        waitingRoomPane.setAlignment(Pos.CENTER);
-        authPane.setAlignment(Pos.CENTER);
-        root.getChildren().addAll(waitingRoomPane);
-        btnStart.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    Requester.startGame();
-                    root.getChildren().removeAll(waitingRoomPane);
-                    gamePaneInit();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+//    private void waitingRoomGroupInit() {
+//        Button btnStart = new Button("Начать игру");
+//        btnStart.requestFocus();
+//        waitingRoomPane = new FlowPane(Orientation.VERTICAL, 70, 70, btnStart);
+//        waitingRoomPane.setAlignment(Pos.CENTER);
+//        authPane.setAlignment(Pos.CENTER);
+//        root.getChildren().addAll(waitingRoomPane);
+//        btnStart.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//                try {
+//                    Requester.startGame();
+//                    root.getChildren().removeAll(waitingRoomPane);
+//                    gamePaneInit();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
 
     private void gamePaneInit() throws IOException {
         Renderer renderer = new Renderer(root);

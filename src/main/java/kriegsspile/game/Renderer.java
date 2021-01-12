@@ -30,12 +30,38 @@ public class Renderer {
                 group.getChildren().addAll(screenField[i][j]);
             }
         }
+        paintMap();
     }
 
     public void update(GameInformation vision){
+
         /*
         todo что то типа обработчика событий, послы выполнения события проверяется whoISTurn выполняется ход
         todo добавть таймер
          */
+    }
+
+    private void paintMap(){
+        for(int i=0;i<GlobalConstants.MAP_H;i++){
+            for(int j=0;j<GlobalConstants.MAP_W;j++){
+                switch (map.getCellState(i,j)){
+                    case NONE:
+                        screenField[i][j].setFill(Color.DARKGRAY);
+                        break;
+                    case U_TANK:
+                        screenField[i][j].setFill(Color.GREENYELLOW);
+                        break;
+                    case E_TANK:
+                        screenField[i][j].setFill(Color.ORANGERED);
+                        break;
+                    case U_INFANTRY:
+                        screenField[i][j].setFill(Color.DARKGREEN);
+                        break;
+                    case E_INFANTRY:
+                        screenField[i][j].setFill(Color.DARKRED);
+                        break;
+                }
+            }
+        }
     }
 }
