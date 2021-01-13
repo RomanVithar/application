@@ -1,10 +1,10 @@
 package kriegsspile.game;
 
-import javafx.scene.paint.Color;
 import kriegsspile.constants.CellState;
 import kriegsspile.constants.GlobalConstants;
-import kriegsspile.dto.GameInformation;
 import kriegsspile.entity.Units;
+
+import java.util.List;
 
 public class Map {
     private CellState[][] map = new CellState[GlobalConstants.MAP_H][GlobalConstants.MAP_W];
@@ -22,30 +22,27 @@ public class Map {
         }
     }
 
-    public void setAsGameInfo(GameInformation gameInfo) {
-        for (Units units : gameInfo.myUnits) {
-            switch (units.getUnitType()) {
+    public void setAsGameInfo(List<Units> units) {
+        CellState cs;
+        fillMap(map, CellState.NONE);
+        for (Units unit : units) {
+            switch (unit.getUnitType()) {
                 case TANK:
-                    map[units.getPosition().y][units.getPosition().x] = CellState.U_TANK;
+                    cs = CellState.E_TANK;
+                    if(unit.isUser()){
+                        cs = CellState.U_TANK;
+                    }
+                    map[unit.getPosition().y][unit.getPosition().x] = cs;
                     break;
                 case INFANTRY:
-                    map[units.getPosition().y][units.getPosition().x] = CellState.U_INFANTRY;
+                    cs = CellState.E_INFANTRY;
+                    if(unit.isUser()){
+                        cs = CellState.U_INFANTRY;
+                    }
+                    map[unit.getPosition().y][unit.getPosition().x] = cs;
                     break;
             }
         }
-        for (Units units : gameInfo.myUnits) {
-            switch (units.getUnitType()) {
-                case TANK:
-                    map[units.getPosition().y][units.getPosition().x] = CellState.E_TANK;
-                    break;
-                case INFANTRY:
-                    map[units.getPosition().y][units.getPosition().x] = CellState.E_INFANTRY;
-                    break;
-            }
-        }
-        /*
-        todo скорее всего надо будет дописать
-         */
     }
 
     public void setCellState(int i, int j, CellState cellState) {
@@ -54,5 +51,12 @@ public class Map {
 
     public CellState getCellState(int i, int j) {
         return map[i][j];
+    }
+
+    public boolean isThatCellNone(int i, int j) {
+        if(map[i][j] == CellState.NONE) {
+            return true;
+        }
+        return false;
     }
 }
